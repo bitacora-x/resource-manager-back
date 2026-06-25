@@ -1,4 +1,4 @@
-package com.bitacora_x.resource_manager_back
+package com.bitacorax.resourcemanagerback
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class ResourceManagerBackApplication
 
 fun main(args: Array<String>) {
-	runApplication<ResourceManagerBackApplication>(*args)
+    runApplication<ResourceManagerBackApplication>(*args)
 }
