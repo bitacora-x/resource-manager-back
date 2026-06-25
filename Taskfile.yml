@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, world!
+
+tasks:
+  build:
+    desc: Build project
+    cmds:
+      - ./gradlew build
+  test:
+    desc: Pass test
+    cmds:
+      - ./gradlew test
+  pre-commict:
+    desc: Pass pre-commict
+    cmds:
+      - ./gradlew ktlintCheck
