@@ -38,10 +38,22 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-task("addPreCommitGitHookOnBuild") {
-    println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-    exec {
-        commandLine("cp", "./.scripts/pre-commit", "./.git/hooks")
+tasks.register("installGitHooks") {
+    description = "Installs ktlint pre-commit hook for this repo"
+    group = "verification"
+    doLast {
+        val hook = file(".git/hooks/pre-commit")
+        copy {
+            from("scripts/pre-commit")
+            into(hook.parentFile)
+            rename { "pre-commit" }
+        }
+        hook.setExecutable(true)
+        println("ktlint pre-commit hook installed at ${hook.absolutePath}")
     }
-    println("✅ Added Pre Commit Git Hook Script.")
+}
+
+// Vincula la tarea al ciclo de vida de la compilación
+tasks.named("build") {
+    dependsOn("installGitHooks")
 }
