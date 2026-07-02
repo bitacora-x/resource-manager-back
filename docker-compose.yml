@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: postgres_dev
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+
+  app:
+    # Usamos una imagen con el JDK completo, no solo el JRE
+    image: eclipse-temurin:21-jdk-jammy
+    container_name: spring_dev_app
+    working_dir: /app
+    volumes:
+      # Monta tu código fuente dentro del contenedor
+      - .:/app
+      # Cachea las dependencias de Gradle para que no se descarguen cada vez
+      - gradle_cache:/root/.gradle
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    # Ejecuta el proyecto en modo desarrollo
+    command: ./gradlew bootRun
+    environment:
+      # Conectamos con la base de datos usando la red interna
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  postgres_data_dev:
+  gradle_cache:
