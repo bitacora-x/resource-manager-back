@@ -9,4 +9,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo "Running Test..."
+
+./gradlew test
+
+if [ $? -ne 0 ]; then
+    echo "Test failed"
+    exit 1
+fi
+
 exit 0

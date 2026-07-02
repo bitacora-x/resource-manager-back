@@ -14,7 +14,8 @@ tasks:
     desc: Pass test
     cmds:
       - ./gradlew test
-  pre-commict:
-    desc: Pass pre-commict
+  pre-commit:
+    desc: Pass pre-commit
     cmds:
       - ./gradlew ktlintCheck
+      - ./gradlew test
