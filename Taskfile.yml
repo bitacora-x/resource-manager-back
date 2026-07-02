@@ -17,5 +17,4 @@ tasks:
   pre-commit:
     desc: Pass pre-commit
     cmds:
-      - ./gradlew ktlintCheck
-      - ./gradlew test
+      - sh ./scripts/pre-commit
