@@ -9,6 +9,8 @@ tasks:
   build:
     desc: Build project
     cmds:
+      - ./gradlew --stop
+      - sudo rm -rf build/
       - ./gradlew build
   test:
     desc: Pass test
